@@ -52,10 +52,70 @@ class ModelTrainer:
                     'RandomForestRegressor': RandomForestRegressor(),
                     'AdaBoostRegressor': AdaBoostRegressor()
                 }
+
+                params = {
+                     "LR": {
+                         "fit_intercept": [True, False],
+                         "positive": [True, False]
+                },
+                  "XGB": {
+                    "n_estimators": [100, 200, 300],
+                    "max_depth": [3, 5, 7, 9],
+                    "learning_rate": [0.01, 0.05, 0.1],
+                    "subsample": [0.6, 0.8, 1.0],
+                    "colsample_bytree": [0.6, 0.8, 1.0],
+                    "gamma": [0, 0.1, 0.3],
+                    "reg_alpha": [0, 0.1, 1],
+                    "reg_lambda": [1, 1.5, 2]
+                },
+
+                "GradientBoostingRegressor": {
+                    "n_estimators": [100, 200, 300],
+                    "learning_rate": [0.01, 0.05, 0.1],
+                    "max_depth": [3, 5, 7],
+                    "min_samples_split": [2, 5, 10],
+                    "min_samples_leaf": [1, 2, 4],
+                    "subsample": [0.6, 0.8, 1.0]
+                },
+
+                "KNeighborsRegressor": {
+                    "n_neighbors": [3, 5, 7, 9, 11, 15],
+                    "weights": ["uniform", "distance"],
+                    "algorithm": ["auto", "ball_tree", "kd_tree"],
+                    "p": [1, 2]
+                },
+
+                "DecisionTreeRegressor": {
+                    "criterion": ["squared_error", "friedman_mse"],
+                    "max_depth": [None, 5, 10, 20, 30],
+                    "min_samples_split": [2, 5, 10],
+                    "min_samples_leaf": [1, 2, 5],
+                    "max_features": ["sqrt", "log2", None]
+                },
+
+                "RandomForestRegressor": {
+                    "n_estimators": [100, 200, 300],
+                    "max_depth": [None, 10, 20, 30],
+                    "min_samples_split": [2, 5, 10],
+                    "min_samples_leaf": [1, 2, 4],
+                    "max_features": ["sqrt", "log2"],
+                    "bootstrap": [True, False]
+                },
+
+                "AdaBoostRegressor": {
+                    "n_estimators": [50, 100, 200],
+                    "learning_rate": [0.01, 0.05, 0.1, 1],
+                    "loss": ["linear", "square", "exponential"]
+                }
+                
+                }
+
+
+                
                 
                 model_report: dict = evaluate_models(
                     X_train=X_train, y_train=y_train, X_test=X_test, y_test=y_test,
-                    models=models
+                    models=models, param=params
                 )
                 
                 # Simplified getting the max score
